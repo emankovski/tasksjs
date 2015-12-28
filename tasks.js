@@ -2,6 +2,7 @@
 //https://github.com/emankovski/tasksjs.git
 //License: MIT
 
+window.allTasks = [];
 
 function MarkTaskAsCompleted(task) {
     task.status = "Completed";
@@ -110,6 +111,7 @@ function WorkerProc() {
                 continue;
             }
             if (task.dependsOnTasks) {
+                
                 var isPosponedTask = false;
                 var len = task.dependsOnTasks.length;
                 for (var i = 0; i < len; i++) {
@@ -183,6 +185,8 @@ function WorkerTask(func, error_callback, ok_callback) {
 
         } catch (e) {
             console.error(e);
+      
+        } finally {
             MarkTaskAsCompleted(task);
         }
 
@@ -192,3 +196,5 @@ function WorkerTask(func, error_callback, ok_callback) {
 
     return localTask;
 }
+
+window.setInterval(WorkerProc, 10);
