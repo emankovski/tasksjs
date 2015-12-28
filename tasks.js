@@ -17,7 +17,7 @@ function generateGUID() {
       s4() + '-' + s4() + s4() + s4();
 }
 
-function MobileTaskObject(callback, name, dependsOnTasks, args) {
+function TaskObject(callback, name, dependsOnTasks, args) {
     this.callback = callback;
     this.dependsOnTasks = dependsOnTasks;
     this.status = "Created";
@@ -68,7 +68,7 @@ function TaskExists(name) {
 }
 
 function NewTask(callback, depends) {
-    var genericTask = new MobileTaskObject(function (name, args, task) {
+    var genericTask = new TaskObject(function (name, args, task) {
         try {
             callback();
         }
@@ -153,7 +153,7 @@ function WorkerProc() {
 
 function WorkerTask(func, error_callback, ok_callback) {
 
-    var localTask = new MobileTaskObject(
+    var localTask = new TaskObject(
 
     function (name, args, task) {
         //
